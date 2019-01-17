@@ -14,8 +14,8 @@
         </span>
       </router-link>
     </HeaderTop>
-    <div class="miste-content-wrapper">
-      <div class="miste-content">
+    <div class="msite-content-wrapper">
+      <div class="msite-content">
         <!--首页导航-->
         <!--<nav class="msite_nav">-->
           <!--<div class="swiper-container" v-if="categorys.length">-->
@@ -66,7 +66,6 @@
       }
     },
     mounted () {
-
       this.$store.dispatch('getCategorys')
       this.$store.dispatch('getShops')
     },
@@ -127,7 +126,7 @@
             },
           })
 
-          new BScroll('.miste-content-wrapper', {
+          new BScroll('.msite-content-wrapper', {
             click: true
           })
         })
@@ -146,7 +145,7 @@
   @import "../../common/stylus/mixins.styl"
   .msite  //首页
     width 100%
-    .miste-content-wrapper
+    .msite-content-wrapper
       position fixed
       top: 45px
       bottom: 46px

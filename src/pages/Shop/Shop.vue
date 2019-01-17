@@ -6,7 +6,10 @@
         <router-link to="/shop/date" replace>日期/餐具</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/goods" replace>菜品</router-link>
+        <router-link to="/shop/self_goods" >自选菜品</router-link>
+      </div>
+      <div class="tab-item">
+        <router-link to="/shop/combo" >套餐</router-link>
       </div>
       <div class="tab-item">
         <router-link to="/shop/ratings" replace>评价</router-link>
@@ -44,7 +47,7 @@
     bottom-border-1px(rgba(7, 17, 27, 0.1))
     .tab-item
       float left
-      width: 25%
+      width: 20%
       text-align center
       font-size 14px
       color rgb(77, 85, 93)

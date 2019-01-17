@@ -4,7 +4,7 @@
       <div class="menu-wrapper">
         <ul>
           <!--current-->
-          <li class="menu-item" v-for="(good, index) in goods" :key="index"
+          <li class="menu-item" v-for="(good, index) in self_goods" :key="index"
               :class="{current: index===currentIndex}" @click="clickMenuItem(index)">
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
@@ -15,7 +15,7 @@
       </div>
       <div class="foods-wrapper">
         <ul ref="foodsUl">
-          <li class="food-list-hook" v-for="(good, index) in goods" :key="index">
+          <li class="food-list-hook" v-for="(good, index) in self_goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
 
             <ul>
@@ -68,7 +68,7 @@
       }
     },
     mounted() {
-      this.$store.dispatch('getShopGoods', () => {// 数据更新后执行
+      this.$store.dispatch('getSelfGoods', () => {// 数据更新后执行
         this.$nextTick(() => { // 列表数据更新显示后执行
 
           this._initScroll()
@@ -78,7 +78,7 @@
 
     },
     computed: {
-      ...mapState(['goods']),
+      ...mapState(['self_goods']),
 
       // 计算得到当前分类的下标
       currentIndex() {// 初始和相关数据发生了变化

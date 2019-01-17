@@ -8,9 +8,11 @@ export default {
   categorys: [], // 食品分类数组
   shops: [], // 商家数组
   userInfo: {}, // 用户信息
-  goods: [], // 商品列表
+  self_goods: [], // 自选商品列表
+  combo_goods:{},//套餐商品对象
   ratings: [], // 商家评价列表
   info: {}, // 商家信息
   cartFoods: [], // 购物车中食物的列表
   searchShops: [], // 搜索得到的商家列表
+  reserveData:{},//预定日期
 }

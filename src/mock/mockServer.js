@@ -4,8 +4,10 @@
 import Mock from 'mockjs'
 import data from './data01.json'
 
-// 返回goods的接口
-Mock.mock('/goods', {code:0, data: data.goods})
+// 返回自选goods的接口
+Mock.mock('/self_goods', {code:0, data: data.self_goods})
+// 返回套餐goods的接口
+Mock.mock('/combo', {code:0, data: data.combo})
 // 返回ratings的接口
 Mock.mock('/ratings', {code:0, data: data.ratings})
 // 返回info的接口

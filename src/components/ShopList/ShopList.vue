@@ -10,11 +10,11 @@
           <div class="shop_right">
             <section class="shop_detail_header">
               <h4 class="shop_title ellipsis">{{shop.name}}</h4>
-              <ul class="shop_detail_ul">
-                <li class="supports" v-for="(support, index) in shop.supports" :key="index">
-                  {{support.icon_name}}
-                </li>
-              </ul>
+              <!--<ul class="shop_detail_ul">-->
+                <!--<li class="supports" v-for="(support, index) in shop.supports" :key="index">-->
+                  <!--{{support.icon_name}}-->
+                <!--</li>-->
+              <!--</ul>-->
             </section>
             <section class="shop_rating_order">
               <section class="shop_rating_order_left">
@@ -27,7 +27,7 @@
                 </div>
               </section>
               <section class="shop_rating_order_right">
-                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+                <span class="delivery_style delivery_right">食来推荐</span>
               </section>
             </section>
             <section class="shop_distance">
@@ -52,7 +52,6 @@
 <script>
   import {mapState} from 'vuex'
   import Star from '../Star/Star.vue'
-
   export default {
     data () {
       return {
@@ -129,7 +128,7 @@
               clearFix()
               width 100%
               margin-top 18px
-              margin-bottom 8px
+              /*margin-bottom 8px*/
               .shop_rating_order_left
                 float left
                 color #ff9a0d

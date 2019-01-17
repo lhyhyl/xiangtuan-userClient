@@ -17,11 +17,13 @@ const Profile = () => import('../pages/Profile/Profile.vue')
 
 import Login from '../pages/Login/Login.vue'
 import Shop from '../pages/Shop/Shop.vue'
-import ShopGoods from '../pages/Shop/ShopGoods/ShopGoods.vue'
+import ShopGoods from '../pages/Shop/ShopSelfGoods/ShopSelfGoods.vue'
 import ShopRatings from '../pages/Shop/ShopRatings/ShopRatings.vue'
 import ShopInfo from '../pages/Shop/ShopInfo/ShopInfo.vue'
 import ShopDate from '../pages/Shop/ShopDate/ShopDate.vue'
-
+import ShopCombo from '../pages/Shop/ShopComboGoods/ShopComboGoods.vue'
+import Payment from '../pages/Payment/Payment.vue'
+import SelectAdress from '../pages/SelectAdress/SelectAdress.vue'
 // 声明使用插件
 Vue.use(VueRouter)
 
@@ -69,8 +71,12 @@ export default new VueRouter({
       component: Shop,
       children: [
         {
-          path: '/shop/goods',
+          path: '/shop/self_goods',
           component: ShopGoods
+        },
+        {
+          path: '/shop/combo',
+          component: ShopCombo
         },
         {
           path: '/shop/ratings',
@@ -89,6 +95,14 @@ export default new VueRouter({
           redirect: '/shop/date '
         },
       ]
+    },
+    {
+      path: '/payment',
+      component: Payment
+    },
+    {
+      path: '/select-adress',
+      component: SelectAdress
     },
   ]
 })

@@ -12,8 +12,8 @@
           <div class="price" :class="{highlight: totalCount}">￥{{totalPrice}}</div>
           <!--<div class="desc">另需配送费￥{{info.deliveryPrice}}元</div>-->
         </div>
-        <div class="content-right">
-          <div class="pay" :class="payClass">
+        <div class="content-right" >
+          <div class="pay" :class="payClass" @click="$router.push('/payment')">
             {{payText}}
           </div>
         </div>
@@ -63,7 +63,7 @@
         const {totalPrice} = this
         const {minPrice} = this.info
 
-        return totalPrice>=minPrice ? 'enough' : 'not-enough'
+        return totalPrice>=minPrice ? 'enough ' : 'not-enough'
       },
       payText () {
         const {totalPrice} = this
@@ -73,6 +73,7 @@
         } else if(totalPrice<minPrice) {
           return `还差￥${minPrice-totalPrice}起接单`
         } else {
+
           return '结算'
         }
       },
@@ -210,6 +211,7 @@
           color #fff
           &.not-enough
             background #2b333b
+            pointer-events none
           &.enough
             background #00b43c
             color #fff

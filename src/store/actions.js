@@ -7,13 +7,16 @@ import {
   RECEIVE_SHOPS,
   RECEIVE_USER_INFO,
   RESET_USER_INFO,
-  RECEIVE_GOODS,
+  RECEIVE_SELF_GOODS,
+  RECEIVE_COMBO_GOODS,
   RECEIVE_RATINGS,
   RECEIVE_INFO,
   INCREMENT_FOOD_COUNT,
   DECREMENT_FOOD_COUNT,
+  INITIALIZE_FOOD_CONUT,
   CLEAR_CART,
-  RECEIVE_SEARCH_SHOPS
+  RECEIVE_SEARCH_SHOPS,
+  UPDATE_RESERVE_DATA
 } from './mutation-types'
 import {
   reqAddress,
@@ -22,7 +25,8 @@ import {
   reqUserInfo,
   reqLogout,
   reqShopRatings,
-  reqShopGoods,
+  reqSelfGoods,
+  reqComboGoods,
   reqShopInfo,
   reqSearchShop
 } from '../api'
@@ -57,10 +61,14 @@ export default {
     const {longitude, latitude} = state
     const result = await reqShops(longitude, latitude)
     // 提交一个mutation
-    if (result.code === 0) {
-      const shops = result.data
+    if (!Array.prototype.isPrototypeOf(result)) {
+      const shops = []
+      shops.push(result)
       commit(RECEIVE_SHOPS, {shops})
+    }else{
+      commit(RECEIVE_SHOPS, {result})
     }
+
   },
 
   // 同步记录用户信息
@@ -105,26 +113,41 @@ export default {
     }
   },
 
-  // 异步获取商家商品列表
-  async getShopGoods({commit}, callback) {
-    const result = await reqShopGoods()
+  // 异步获取商家自选商品列表
+  async getSelfGoods({commit}, callback) {
+    const result = await reqSelfGoods()
     if (result.code === 0) {
-      const goods = result.data
-      commit(RECEIVE_GOODS, {goods})
+      const self_goods = result.data
+      commit(RECEIVE_SELF_GOODS, {self_goods})
+      // 数据更新了, 通知一下组件
+      callback && callback()
+    }
+  },
+
+  // 异步获取商家套餐商品列表
+  async getComboGoods({commit}, callback) {
+    const result = await reqComboGoods()
+    if (result.code === 0) {
+      const combo_goods = result.data
+      commit(RECEIVE_COMBO_GOODS, {combo_goods})
       // 数据更新了, 通知一下组件
       callback && callback()
     }
   },
 
   // 同步更新food中的count值
-  updateFoodCount({commit}, {isAdd, food}) {
+  updateFoodCount({commit}, {isAdd, food,count}) {
     if (isAdd) {
-      commit(INCREMENT_FOOD_COUNT, {food})
+      commit(INCREMENT_FOOD_COUNT, {food,count})
     } else {
-      commit(DECREMENT_FOOD_COUNT, {food})
+      commit(DECREMENT_FOOD_COUNT, {food,count})
     }
   },
 
+  //同步初始化food中的count值
+  initializeFoodCount({commit},{food,count}){
+    commit(INITIALIZE_FOOD_CONUT,{food,count})
+  },
   // 同步清空购物车
   clearCart({commit}) {
     commit(CLEAR_CART)
@@ -140,4 +163,10 @@ export default {
       commit(RECEIVE_SEARCH_SHOPS, {searchShops})
     }
   },
+
+  //同步更新预定日期
+  updateReserveData({commit},{reserveData}){
+      commit(UPDATE_RESERVE_DATA,{reserveData})
+  }
 }
+

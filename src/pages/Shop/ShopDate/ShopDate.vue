@@ -25,10 +25,11 @@
         <!-- {{monthString}} -->
         <div class="month">
           <div class="month-inner" :style="{'top':-(this.month*20)+'px'}">
-            <span v-for="m in months">{{m}}</span>
+            <span v-for="m in months">{{m }} {{year}}</span>
           </div>
+          <div class="year" ></div>
         </div>
-        <div class="year">{{year}}</div>
+        <div class="year">请选择办席日期</div>
       </div>
     </div>
     <table cellpadding="5">
@@ -39,7 +40,8 @@
       </thead>
       <tbody>
       <tr v-for="(day,k1) in days" style="{'animation-delay',(k1*30)+'ms'}">
-        <td v-for="(child,k2) in day" :class="{'selected':child.selected,'disabled':child.disabled}" @click="select(k1,k2,$event)">
+        <td v-for="(child,k2) in day" :class="{'selected':child.selected,'disabled':child.disabled}"
+            @click="select(k1,k2,$event);updateReserveData()" >
           <span :class="{'red':k2==0||k2==6||((child.isLunarFestival||child.isGregorianFestival) && lunar)}">
             {{child.disabled  ? child.canShow ? child.day : "" :child.day }}
             <!--{{this.props.disabled}}-->
@@ -61,7 +63,7 @@
     <div class="calendar-years" :class="{'show':yearsShow}">
       <span v-for="y in years" @click.stop="selectYear(y)" :class="{'active':y==year}">{{y}}</span>
     </div>
-
+    <button class="login_submit" @click="$router.push('/shop/self_goods')">日期选择完毕，进入点餐页面</button>
   </div>
 </template>
 
@@ -109,7 +111,7 @@
       disabled:{
         type: Array,
         default: function(){
-          return [[2018,12,20],[2018,12,21]]
+          return [[2019,1,13],[2018,12,21]]
         }
       },
       // 是否显示农历
@@ -183,6 +185,7 @@
         },
         rangeBegin:[],
         rangeEnd:[],
+        reserveData:[],//预定日期
       }
     },
     watch:{
@@ -195,6 +198,7 @@
     },
     mounted() {
       this.init()
+      this.updateReserveData()
     },
     methods: {
       init(){
@@ -597,10 +601,31 @@
       zeroPad(n){
         return String(n < 10 ? '0' + n : n)
       },
+
+
+      //更新state里的reserveData
+      updateReserveData(){
+        let reserveData = {year:this.year,month:this.month+1,day:this.day}
+        this.$store.dispatch('updateReserveData',{reserveData})
+      }
     }
   }
 </script>
 <style scoped>
+  .login_submit{
+    display: block;
+    width :100%;
+    height :42px;
+    margin-top :30px;
+    border-radius: 4px;
+    background :#4cd96f;
+    color :#fff;
+    text-align :center;
+    font-size :16px;
+    line-height: 42px;
+    border :0;
+  }
+
   .calendar {
     margin:auto;
     width: 100%;
