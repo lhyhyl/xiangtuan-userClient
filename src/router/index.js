@@ -23,7 +23,7 @@ import ShopInfo from '../pages/Shop/ShopInfo/ShopInfo.vue'
 import ShopDate from '../pages/Shop/ShopDate/ShopDate.vue'
 import ShopCombo from '../pages/Shop/ShopComboGoods/ShopComboGoods.vue'
 import Payment from '../pages/Payment/Payment.vue'
-import SelectAdress from '../pages/SelectAdress/SelectAdress.vue'
+import SelectAdress from '../pages/AddAdress/AddAdress.vue'
 // 声明使用插件
 Vue.use(VueRouter)
 
@@ -75,7 +75,7 @@ export default new VueRouter({
           component: ShopGoods
         },
         {
-          path: '/shop/combo',
+          path: '/shop/combo_goods',
           component: ShopCombo
         },
         {

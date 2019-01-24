@@ -15,7 +15,7 @@
         <div class="foods-wrapper">
           <ul ref="foodsUl">
             <li class="food-list-hook">
-              <h1 class="title">{{name}}</h1>
+              <h1 class="title">{{this.combo_goods.name}}</h1>
 
               <ul>
                 <li class="food-item bottom-border-1px" v-for="(food, index) in  this.combo_goods.foods"
@@ -50,6 +50,7 @@
 </template>
 <script>
   import BScroll from 'better-scroll'
+  import { MessageBox } from 'mint-ui';
   import {mapState} from 'vuex'
   import CartControl from '../../../components/CartControl/CartControl.vue'
   import Food from '../../../components/Food/Food.vue'
@@ -58,12 +59,12 @@
       data() {
         return {
           food: {}, // 需要显示的food
-          goods:{},//需要显示的商品
-          name:'',//栏目名
         }
       },
       mounted() {
-             this.$store.dispatch('getComboGoods')
+        MessageBox('温馨提示', '您现在所在页面为套餐页面，您可以选择商家精心为您准备的套餐，套餐以桌计。' +
+          '当然如果您觉得套餐菜品不足，您也可以选择套餐后移步单品页面进行添加，您所选的商品商家都将为您精心准备');
+        this.$store.dispatch('getComboGoods')
       },
       computed: {
         ...mapState(['combo_goods']),
@@ -75,8 +76,12 @@
           this.food = food
           // 显示food组件 (在父组件中调用子组件对象的方法)
           this.$refs.food.toggleShow()
-        }
+        },
 
+        //根据cartFood更新food
+        updateFood(food){
+          this.$store.dispatch('updateFood')
+        }
 
       },
 

@@ -16,7 +16,9 @@ import {
   INITIALIZE_FOOD_CONUT,
   CLEAR_CART,
   RECEIVE_SEARCH_SHOPS,
-  UPDATE_RESERVE_DATA
+  UPDATE_RESERVE_DATA,
+  RECEIVE_USER_ADDRESS,
+  UPDATE_DESK_NUM
 } from './mutation-types'
 import {
   reqAddress,
@@ -135,6 +137,12 @@ export default {
     }
   },
 
+  //根据cartFood更新商品列表
+  updateFood({commit}){
+     let obj = this.state.cartFoods.find(f => {
+     return f.id == food.id
+    })
+  },
   // 同步更新food中的count值
   updateFoodCount({commit}, {isAdd, food,count}) {
     if (isAdd) {
@@ -167,6 +175,18 @@ export default {
   //同步更新预定日期
   updateReserveData({commit},{reserveData}){
       commit(UPDATE_RESERVE_DATA,{reserveData})
+  },
+
+  //同步接收用户地址信息
+  reciveUserAddress({commit},{addressData}){
+    commit(RECEIVE_USER_ADDRESS,{addressData})
+  },
+
+  //同步更新桌数信息
+  updateDeskNum({commit},{deskNum}){
+    commit(UPDATE_DESK_NUM,{deskNum})
   }
+
+
 }
 

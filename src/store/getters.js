@@ -4,11 +4,11 @@
 export default {
 
   totalCount (state) {
-    return state.cartFoods.reduce((preTotal, food) => preTotal + food.count , 0)
+    return state.cartFoods.reduce((preTotal, food) => preTotal*1 + food.count*1 , 0)
   },
 
   totalPrice (state) {
-    return state.cartFoods.reduce((preTotal, food) => preTotal + food.count*food.price , 0)
+    return state.cartFoods.reduce((preTotal, food) => preTotal + food.count*1 * food.price , 0)
   },
 
   positiveSize (state) {

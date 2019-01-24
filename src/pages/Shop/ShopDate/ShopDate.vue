@@ -63,12 +63,15 @@
     <div class="calendar-years" :class="{'show':yearsShow}">
       <span v-for="y in years" @click.stop="selectYear(y)" :class="{'active':y==year}">{{y}}</span>
     </div>
-    <button class="login_submit" @click="$router.push('/shop/self_goods')">日期选择完毕，进入点餐页面</button>
+    <span>请选择办席桌数</span>
+    <mt-picker :slots="slots" @change="onValuesChange" style="margin-top: -100px"></mt-picker>
+    <button class="login_submit" @click="$router.push('/shop/combo_goods')">日期/桌数选择完毕，进入点餐页面</button>
   </div>
 </template>
 
 <script>
   import calendar from './calendar'
+
   export default {
     props: {
       // 多选模式
@@ -143,6 +146,15 @@
     },
     data() {
       return {
+        slots: [
+          {
+            visibleItemCount:3,
+            textAlign:'center',
+            values: ['1桌', '2桌', '3桌', '4桌', '5桌', '6桌','7桌','8桌','9桌','10桌','11桌','12桌','13桌','14桌'],
+            className: 'slot1',
+            itemHeight:15
+          }
+        ],
         years:[],
         yearsShow:false,
         year: 0,
@@ -186,6 +198,7 @@
         rangeBegin:[],
         rangeEnd:[],
         reserveData:[],//预定日期
+        deskNum:"",//桌数
       }
     },
     watch:{
@@ -607,8 +620,16 @@
       updateReserveData(){
         let reserveData = {year:this.year,month:this.month+1,day:this.day}
         this.$store.dispatch('updateReserveData',{reserveData})
+      },
+      onValuesChange(picker, values) {
+        if (values[0] > values[1]) {
+          picker.setSlotValue(1, values[0]);
+        }
+        //获取选中的桌数
+        this.deskNum = values[0]
+        this.$store.dispatch('updateDeskNum',{deskNum:this.deskNum})
       }
-    }
+    },
   }
 </script>
 <style scoped>

@@ -9,7 +9,7 @@
         <router-link to="/shop/self_goods" >自选菜品</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/combo" >套餐</router-link>
+        <router-link to="/shop/combo_goods" >套餐</router-link>
       </div>
       <div class="tab-item">
         <router-link to="/shop/ratings" replace>评价</router-link>

@@ -18,8 +18,10 @@
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.1",
     "swiper": "^4.2.6",
+    "v-distpicker": "^1.1.0",
     "vue": "^2.5.2",
     "vue-calendar-component": "^2.7.4",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-lazyload": "^1.2.3",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

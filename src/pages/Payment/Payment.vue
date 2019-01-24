@@ -1,7 +1,7 @@
 <template>
   <section class="payment" >
     <HeaderTop title="确认订单"/>
-    <a class="back" @click="$router.back()">
+    <a class="back" @click="$router.push('/shop/combo_goods')">
       <i class="iconfont icon-arrow_left"></i>
     </a>
     <section class="common adress">
@@ -10,7 +10,14 @@
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top" >请添加办席地点</p>
+          <div style="line-height: 0px" v-if="this.addressData.phone">
+            <span>{{this.addressData.name}}{{this.addressData.sex === 0 ? "女士" : "先生"}}</span>
+            <span>{{this.addressData.phone}}</span>
+            <span>桌数:{{this.deskNum}}</span>
+            <div style="margin-top: 34px;font-size: 12px">{{this.addressData.area + this.addressData.address}}</div>
+          </div>
+
+          <p class="user-info-top" v-else>请添加办席地点</p>
         </div>
         <span class="arrow">
           <i class="iconfont icon-jiantou1"></i>
@@ -59,9 +66,9 @@
   import {mapState} from 'vuex'
   export default {
 
-
     computed:{
-      ...mapState(['cartFoods'])
+      ...mapState(['cartFoods',"addressData",'deskNum'])
+
     },
 
     components: {
@@ -125,8 +132,8 @@
                   font-size 62px
               .user-info
                 float left
-                margin-top 17px
-                margin-left 15px
+                margin-top 15px
+                margin-left 11px
                 p
                   font-weight: 700
                   font-size 25px

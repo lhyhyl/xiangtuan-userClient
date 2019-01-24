@@ -78,6 +78,7 @@
         }
       },
 
+
       listShow () {
         // 如果总数量为0, 直接不显示
         if(this.totalCount===0) {

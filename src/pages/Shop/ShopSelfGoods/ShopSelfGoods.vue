@@ -53,6 +53,7 @@
 
 <script>
   import BScroll from 'better-scroll'
+  import { MessageBox } from 'mint-ui';
   import {mapState} from 'vuex'
   import CartControl from '../../../components/CartControl/CartControl.vue'
   import Food from '../../../components/Food/Food.vue'
@@ -68,9 +69,10 @@
       }
     },
     mounted() {
+      MessageBox('温馨提示', '您现在所在页面为单品页面，您可以自行搭配选择您所需要的菜品，单位以桌计。' +
+        '当然您也可以直接进入套餐页面进行选购，您所选的商品商家都将为您精心准备');
       this.$store.dispatch('getSelfGoods', () => {// 数据更新后执行
         this.$nextTick(() => { // 列表数据更新显示后执行
-
           this._initScroll()
           this._initTops()
         })

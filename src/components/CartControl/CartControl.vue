@@ -1,39 +1,22 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-      <div class="iconfont icon-remove_circle_outline" v-if="food.count || this.count > 0" @click.stop="updateFoodCount(false)"></div>
+      <div class="iconfont icon-remove_circle_outline" v-if="food.count > 0" @click.stop="updateFoodCount(false)"></div>
     </transition>
-    <div class="cart-count" v-if="food.count || this.count > 0">{{this.count}}</div>
+    <div class="cart-count" v-if="food.count > 0">{{food.count}}</div>
     <div class="iconfont icon-add_circle" @click.stop="updateFoodCount(true)"></div>
   </div>
 </template>
 
 <script>
   export default {
-    data(){
-      return{
-        count:0
-      }
-    },
     props: {
-      food: Object,
+      food: Object
     },
-    mounted(){
-      this.count = localStorage.getItem(this.food.id)
-//      this.$store.dispatch('initializeFoodCount', { food: this.food,count:this.count})
-    },
+
     methods: {
       updateFoodCount (isAdd) {
-        if(isAdd){
-          this.count++
-        }else {
-          if(this.count)
-              this.count--
-
-        }
-        this.$store.dispatch('updateFoodCount', {isAdd, food: this.food,count:this.count})
-
-        localStorage.setItem(this.food.id, this.count);
+        this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
       }
     }
   }

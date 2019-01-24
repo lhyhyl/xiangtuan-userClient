@@ -14,10 +14,11 @@ import {
   RECEIVE_COMBO_GOODS,
   INCREMENT_FOOD_COUNT,
   DECREMENT_FOOD_COUNT,
-  INITIALIZE_FOOD_CONUT,
   CLEAR_CART,
   RECEIVE_SEARCH_SHOPS,
-  UPDATE_RESERVE_DATA
+  UPDATE_RESERVE_DATA,
+  RECEIVE_USER_ADDRESS,
+  UPDATE_DESK_NUM
 } from './mutation-types'
 
 export default {
@@ -49,22 +50,31 @@ export default {
   },
 
   [RECEIVE_SELF_GOODS](state, {self_goods}) {
-    state.self_goods = self_goods
+    if(state.selfFirstLoad){
+      state.self_goods = self_goods
+        //更新sessionStorage
+      sessionStorage.setItem('store',JSON.stringify(state))
+      state.selfFirstLoad = false
+    }else{
+      state = sessionStorage.getItem('store')
+    }
   },
 
   [RECEIVE_COMBO_GOODS](state, {combo_goods}) {
-    state.combo_goods = combo_goods
+
+    if(state.comboFirstLoad){
+      state.combo_goods = combo_goods
+      //更新sessionStorage
+      sessionStorage.setItem('store',JSON.stringify(state))
+      state.comboFirstLoad = false
+    }else{
+      state = sessionStorage.getItem('store')
+    }
+
   },
 
-  [INCREMENT_FOOD_COUNT](state, {food,count}) {
-    debugger
-    if(!food.count || !count) { // 第一次增加
-      // food.count = 1  // 新增属性(没有数据绑定)
-      /*
-      对象
-      属性名
-      属性值
-       */
+  [INCREMENT_FOOD_COUNT](state, {food}) {
+    if(!food.count) { // 第一次增加
       Vue.set(food, 'count', 1) // 让新增的属性也有数据绑定
       // 将food添加到cartFoods中
       state.cartFoods.push(food)
@@ -72,30 +82,24 @@ export default {
       food.count++
     }
   },
-  [DECREMENT_FOOD_COUNT](state, {food,count}) {
-
-      food.count = count
+  [DECREMENT_FOOD_COUNT](state, {food}) {
+    if(food.count) {// 只有有值才去减
+      food.count--
       if(food.count===0) {
         // 将food从cartFoods中移除
         state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
       }
-
-  },
-  [INITIALIZE_FOOD_CONUT](state, {food,count}){
-    if(count > 0){
-      Vue.set(food, 'count', count) // 让新增的属性也有数据绑定
-      // 将food添加到cartFoods中
-      state.cartFoods.push(food)
     }
-
   },
 
   [CLEAR_CART](state) {
-
     // 清除food中的count
     state.cartFoods.forEach(food => food.count = 0)
     // 移除购物车中所有购物项
     state.cartFoods = []
+
+    //更新sessionStorage
+    sessionStorage.setItem('store',JSON.stringify(state))
   },
 
   [RECEIVE_SEARCH_SHOPS](state, {searchShops}) {
@@ -105,5 +109,16 @@ export default {
 
   [UPDATE_RESERVE_DATA](state,{reserveData}){
     state.reserveData = reserveData;
-  }
+  },
+
+  //接收用户地址信息，修改state
+  [RECEIVE_USER_ADDRESS](state,{addressData}){
+    state.addressData = addressData;
+  },
+
+  //更新桌数信息
+  [UPDATE_DESK_NUM](state,{deskNum}){
+    state.deskNum = deskNum;
+  },
+
 }

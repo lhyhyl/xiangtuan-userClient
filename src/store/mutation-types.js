@@ -22,6 +22,10 @@ export const RECEIVE_SEARCH_SHOPS = 'receive_search_shops' // 接收搜索的商
 
 
 export const UPDATE_RESERVE_DATA = 'update_reserve_data'//更新预定日期
+export const RECEIVE_USER_ADDRESS = 'recive_user_address'//接收用户地址信息
+export const UPDATE_DESK_NUM = 'update_desk_num'//更新桌数信息
+
+
 
 
 
