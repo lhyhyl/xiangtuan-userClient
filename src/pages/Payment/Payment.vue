@@ -10,15 +10,18 @@
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <div style="line-height: 0px" v-if="this.addressData.phone">
-            <span>{{this.addressData.name}}{{this.addressData.sex === 0 ? "女士" : "先生"}}</span>
-            <span>{{this.addressData.phone}}</span>
-            <span>桌数:{{this.deskNum}}</span>
-            <div style="margin-top: 34px;font-size: 12px">{{this.addressData.area + this.addressData.address}}</div>
-          </div>
+        <div style="line-height: 0px" v-if="this.addressData.phone">
+          <span>{{this.addressData.name}}{{this.addressData.sex === 0 ? "女士" : "先生"}}</span>
+          <span>{{this.addressData.phone}}</span>
+          <span>桌数:{{this.deskNum}}</span>
 
-          <p class="user-info-top" v-else>请添加办席地点</p>
+          <div class="hideFont" :title=[this.addressData.area,this.addressData.address] ><nobr>{{this.addressData.area + this.addressData.address}}</nobr></div>
+          <div class="reserveData">办席日期:{{this.reserveData.year }}年{{this.reserveData.month}}月{{this.reserveData.day}}日</div>
         </div>
+
+        <p class="user-info-top" v-else>请添加办席地点</p>
+      </div>
+
         <span class="arrow">
           <i class="iconfont icon-jiantou1"></i>
         </span>
@@ -38,8 +41,9 @@
               </div>
               <div class="order_center">
 
-                <h4 class="order_title ">{{cartFood.name}}</h4>
+                <span class="order_title ">{{cartFood.name}}</span>&nbsp;&nbsp;
                 <span>x{{cartFood.count}}</span>
+
               </div>
               <div class="order_right">
                 <h4 class="order_price ">￥{{cartFood.price}}</h4>
@@ -49,6 +53,12 @@
           </li>
 
           </ul>
+          <div style="display: flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;">
+            <span>桌数{{this.deskNum}}</span>
+            <span>{{totalPrice}}元 * {{deskNum}}</span>
+            <span >共计:<a style="color: red;">{{this.sum()}}</a>元</span>
+          </div>
+
 
         </div>
       </div>
@@ -63,16 +73,20 @@
 </template>
 <script>
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
-  import {mapState} from 'vuex'
+  import {mapState,mapGetters} from 'vuex'
   export default {
-
     computed:{
-      ...mapState(['cartFoods',"addressData",'deskNum'])
-
+      ...mapState(['cartFoods',"addressData",'deskNum','reserveData']),
+      ...mapGetters([ 'totalPrice']),
     },
-
     components: {
       HeaderTop
+    },
+    methods:{
+      sum(){
+        let desks = this.deskNum.substring(0,1)*1
+        return this.totalPrice * desks
+      }
     }
   }
 </script>
@@ -134,6 +148,19 @@
                 float left
                 margin-top 15px
                 margin-left 11px
+                span
+                  color #000
+                .hideFont
+                  margin-top: 22px;
+                  font-size: 12px;
+                  width:252px;
+                  height:12px;
+                  line-height 12px
+                  overflow hidden
+                  text-overflow ellipsis
+                .reserveData
+                  margin-top 15px
+                  font-size 12px
                 p
                   font-weight: 700
                   font-size 25px
@@ -173,7 +200,7 @@
                     color: #4b4b4b
                     line-height 80px
                 .order_container
-                    margin 50px 0 50px 0
+                    padding 50px 0 50px 0
                     .order_list
                       .order_li
                         position: relative;

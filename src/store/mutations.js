@@ -56,19 +56,40 @@ export default {
       sessionStorage.setItem('store',JSON.stringify(state))
       state.selfFirstLoad = false
     }else{
-      state = sessionStorage.getItem('store')
+      state.self_goods.forEach((goods)=>{
+        goods.foods.forEach((food)=>{
+          if(food.count){
+            Vue.set(food, 'count', food.count)
+            let delFood = state.cartFoods.find(f => f.id == food.id)
+            let index =  state.cartFoods.indexOf(delFood)
+            state.cartFoods.splice(index,1)
+            state.cartFoods.push(food)
+          }
+
+        })
+
+      })
     }
+
   },
 
   [RECEIVE_COMBO_GOODS](state, {combo_goods}) {
-
     if(state.comboFirstLoad){
       state.combo_goods = combo_goods
       //更新sessionStorage
       sessionStorage.setItem('store',JSON.stringify(state))
       state.comboFirstLoad = false
     }else{
-      state = sessionStorage.getItem('store')
+      state.combo_goods.foods.forEach((food)=>{
+        if(food.count){
+          Vue.set(food, 'count', food.count)
+          let delFood = state.cartFoods.find(f => f.id == food.id)
+          let index =  state.cartFoods.indexOf(delFood)
+          state.cartFoods.splice(index,1)
+          state.cartFoods.push(food)
+        }
+      })
+
     }
 
   },
@@ -95,6 +116,7 @@ export default {
   [CLEAR_CART](state) {
     // 清除food中的count
     state.cartFoods.forEach(food => food.count = 0)
+
     // 移除购物车中所有购物项
     state.cartFoods = []
 
