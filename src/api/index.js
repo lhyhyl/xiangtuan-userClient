@@ -45,6 +45,10 @@ export const reqSelfGoods = () => ajax('/self_goods')
  * 获取商家商品套餐菜品数组
  */
 export const reqComboGoods = () => ajax('/combo')
+/**
+ * 获取商家不可订日期
+ */
+export const reqUndatable = () => ajax('/undatable')
 
 
 

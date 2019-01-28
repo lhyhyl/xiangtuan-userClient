@@ -65,7 +65,10 @@
 
 
     </section>
-    <button class="login_submit" @click="$router.push('/shop/goods')">订单确认无误，点击提交</button>
+
+    <button class="login_submit"
+            @click="$router.push('/shop/goods')"
+            >订单确认无误，点击提交</button>
 
   </section>
 
@@ -75,6 +78,7 @@
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
   import {mapState,mapGetters} from 'vuex'
   export default {
+
     computed:{
       ...mapState(['cartFoods',"addressData",'deskNum','reserveData']),
       ...mapGetters([ 'totalPrice']),
@@ -86,7 +90,8 @@
       sum(){
         let desks = this.deskNum.substring(0,1)*1
         return this.totalPrice * desks
-      }
+      },
+
     }
   }
 </script>
@@ -214,15 +219,13 @@
                         .order_center
                           color #000
                           float: left
-                          font-size 20px
+                          display: block
+                          width:54%
                           .order_title
                             margin-bottom 31px
                         .order_right
                           color #000
                           float: right
                           font-weight:bolder
-
-
-
 </style>
 

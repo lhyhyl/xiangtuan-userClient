@@ -18,7 +18,8 @@ import {
   RECEIVE_SEARCH_SHOPS,
   UPDATE_RESERVE_DATA,
   RECEIVE_USER_ADDRESS,
-  UPDATE_DESK_NUM
+  UPDATE_DESK_NUM,
+  RECEIVE_UNDATABLE
 } from './mutation-types'
 import {
   reqAddress,
@@ -30,7 +31,8 @@ import {
   reqSelfGoods,
   reqComboGoods,
   reqShopInfo,
-  reqSearchShop
+  reqSearchShop,
+  reqUndatable
 } from '../api'
 
 export default {
@@ -171,6 +173,17 @@ export default {
       commit(RECEIVE_SEARCH_SHOPS, {searchShops})
     }
   },
+  // 异步获取商家不可订日期
+  async getUndatable({commit}, callback) {
+    const result = await reqUndatable()
+    if (result.code === 0) {
+      const undatable = result.data
+      commit(RECEIVE_UNDATABLE,{undatable})
+      // 数据更新了, 通知一下组件
+      callback && callback()
+    }
+  },
+
 
   //同步更新预定日期
   updateReserveData({commit},{reserveData}){
@@ -185,8 +198,7 @@ export default {
   //同步更新桌数信息
   updateDeskNum({commit},{deskNum}){
     commit(UPDATE_DESK_NUM,{deskNum})
-  }
-
+  },
 
 }
 

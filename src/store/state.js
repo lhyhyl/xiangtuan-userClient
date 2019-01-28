@@ -19,4 +19,5 @@ export default {
   selfFirstLoad:true,//判断自选商品首次加载
   comboFirstLoad:true,//判断套餐商品首次加载
   deskNum:"",//桌数
+  undatable:[],//不可订日期
 }

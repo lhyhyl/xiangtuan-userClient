@@ -63,6 +63,8 @@
     <div class="calendar-years" :class="{'show':yearsShow}">
       <span v-for="y in years" @click.stop="selectYear(y)" :class="{'active':y==year}">{{y}}</span>
     </div>
+
+
     <span>请选择办席桌数</span>
     <mt-picker :slots="slots" @change="onValuesChange" style="margin-top: -100px"></mt-picker>
     <button class="login_submit" @click="$router.push('/shop/combo_goods')">日期/桌数选择完毕，进入点餐页面</button>
@@ -71,7 +73,7 @@
 
 <script>
   import calendar from './calendar'
-
+  import {mapState} from 'vuex'
   export default {
     props: {
       // 多选模式
@@ -110,13 +112,6 @@
         type: Boolean,
         default: false
       },
-      // 屏蔽的日期
-      disabled:{
-        type: Array,
-        default: function(){
-          return [[2019,1,13],[2018,12,21]]
-        }
-      },
       // 是否显示农历
       lunar: {
         type: Boolean,
@@ -152,7 +147,6 @@
             textAlign:'center',
             values: ['1桌', '2桌', '3桌', '4桌', '5桌', '6桌','7桌','8桌','9桌','10桌','11桌','12桌','13桌','14桌'],
             className: 'slot1',
-            itemHeight:15
           }
         ],
         years:[],
@@ -212,6 +206,7 @@
     mounted() {
       this.init()
       this.updateReserveData()
+      this.$store.dispatch('getUndatable')
     },
     methods: {
       init(){
@@ -364,8 +359,8 @@
                 let endTime = Number(new Date(parseInt(this.end[0]),parseInt(this.end[1]) - 1,parseInt(this.end[2])))
                 if (endTime <  Number(new Date(this.year, this.month, i))) options.disabled = true
               }
-              if (this.disabled.length>0){
-                if (this.disabled.filter(v => {return this.year === v[0] && this.month === v[1]-1 && i === v[2] }).length>0) {
+              if (this.undatable.length>0){
+                if (this.undatable.filter(v => {return this.year === v[0] && this.month === v[1]-1 && i === v[2] }).length>0) {
                   options.disabled = true
                   options.canShow = true
                 }
@@ -629,6 +624,9 @@
         this.deskNum = values[0]
         this.$store.dispatch('updateDeskNum',{deskNum:this.deskNum})
       }
+    },
+    computed:{
+      ...mapState(['undatable'])
     },
   }
 </script>

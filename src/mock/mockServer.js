@@ -13,4 +13,8 @@ Mock.mock('/ratings', {code:0, data: data.ratings})
 // 返回info的接口
 Mock.mock('/info', {code:0, data: data.info})
 
+//返回不可订日期cannot_reserve_date的接口
+Mock.mock('/undatable', {code:0, data: data.undatable})
+
+
 // export default ???  不需要向外暴露任何数据, 只需要保存能执行即可

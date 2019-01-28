@@ -35,7 +35,7 @@
                       <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                     </div>
                     <div class="cartcontrol-wrapper">
-                        <CartControl :food="food" />
+                        <CartControl :food="food" :foods="combo_goods.foods"/>
                     </div>
                   </div>
                 </li>
@@ -88,7 +88,7 @@
       components: {
         CartControl,
         Food,
-        ShopCart
+        ShopCart,
       }
 
     }

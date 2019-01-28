@@ -18,7 +18,8 @@ import {
   RECEIVE_SEARCH_SHOPS,
   UPDATE_RESERVE_DATA,
   RECEIVE_USER_ADDRESS,
-  UPDATE_DESK_NUM
+  UPDATE_DESK_NUM,
+  RECEIVE_UNDATABLE
 } from './mutation-types'
 
 export default {
@@ -143,4 +144,8 @@ export default {
     state.deskNum = deskNum;
   },
 
+  //更新不可订日期
+  [RECEIVE_UNDATABLE](state,{undatable}){
+    state.undatable = undatable;
+  }
 }

@@ -53,6 +53,7 @@
     "name": "精选套餐",
     "foods": [
       {
+        "choosable":false,
         "id":"combo_01",
         "name": "低配套餐",
         "price": 500,
@@ -74,6 +75,7 @@
         "image": "http://fuss10.elemecdn.com/f/49/27f26ed00c025b2200a9ccbb7e67ejpeg.jpeg?imageView2/1/w/750/h/750"
       },
       {
+        "choosable":false,
         "id":"combo_02",
         "name": "中配套餐",
         "price":600,
@@ -95,6 +97,7 @@
         "image": "http://fuss10.elemecdn.com/8/96/f444a8087f0e940ef264617f9d98ajpeg.jpeg?imageView2/1/w/750/h/750"
       },
       {
+        "choosable":false,
         "id":"combo_03",
         "name": "高配套餐",
         "price":1000,
@@ -1422,7 +1425,7 @@
       "recommend": []
     }
   ],
-  "cannot_reserve_date":[
+  "tableware":[
     {
       "name": "餐具选择",
       "isMustChoose":true,
@@ -1471,5 +1474,11 @@
         }
       ]
     }
+  ],
+  "undatable":[
+    [2019,1,13],
+    [2018,12,21],
+    [2019,1,29],
+    [2019,1,30]
   ]
 }
